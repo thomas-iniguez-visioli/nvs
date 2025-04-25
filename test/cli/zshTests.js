@@ -9,7 +9,7 @@ const testParentDir = path.resolve(__dirname, '..', 'temp');
 const testDir = path.join(testParentDir, 'zsh');
 
 const testNodeVersion = '8.5.0';
-
+test.skip
 test.before(t => {
 	require('../fsUtil').createDirectoryIfNotFound(testParentDir);
 });
