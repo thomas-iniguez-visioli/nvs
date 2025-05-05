@@ -37,7 +37,7 @@ test('Zsh CLI', t => {
 	];
 	for (let i = commands.length - 1; i >= 0; i--) {
 		// Print each command before executing it.
-		commands.splice(i, 0, 'echo \\> ' + commands[i].replace(/\$/g, '\\$'));
+		commands.splice(i, 0, 'echo \\> ' + commands[i].replace(/([\\$])/g, '\\$1'));
 	}
 
 	const result = childProcess.spawnSync(
