@@ -22,9 +22,9 @@ jobs:
       - name: Bump Version of package.json
         uses: ramonpaolo/bump-version@v2.3.1
         with:
-          tag:  ${{ steps.bump-semver.outputs.new_version }}#Accessing the context and get the reference_name, that in this case, is the tag that you created(ex: v1.0.0)
+          tag:  ${{ steps.bump-semver.outputs.new_version }} #Accessing the context and get the reference_name, that in this case, is the tag that you created(ex: v1.0.0)
           commit: true
-          branch_to_push: 'main'
+          branch_to_push: 'master'
       - uses: actions-ecosystem/action-push-tag@v1
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
