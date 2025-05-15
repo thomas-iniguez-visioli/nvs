@@ -1,5 +1,5 @@
 {
-  "main": "./bundlescript.js",
+  "main": "./bundle.js",
   "output": "./blob.blob",
   "disableExperimentalSEAWarning": true, 
   "useSnapshot": false,  
