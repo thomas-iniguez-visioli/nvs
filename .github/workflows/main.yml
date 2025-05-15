@@ -79,12 +79,13 @@ jobs:
         fi
    
     - name: Download artifact
+      id: list
       uses: actions/download-artifact@v4
       with:
           path: ./release
     - run: dir -R ./release 
     - name: list
-      id: list
+     
       uses: the-coding-turtle/ga-file-list@v0.2
       with:
           directory: "release"
@@ -95,5 +96,5 @@ jobs:
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{steps.list.outputs.files}}
+        files: ${{steps.list.outputs.download-path}}
         body_path: "README.md"
