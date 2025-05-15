@@ -83,19 +83,19 @@ jobs:
       with:
           path: ./release
     - run: ls -R ./release
-    - name: List Files
+    - name: List
       id: list-files
       uses: mirko-felice/list-files-action@v3.0.5
       with:
           repo: ${{ github.repository }}
           ref: ${{ github.ref }}
           path: "./release"
-          ext: ""
+          ext: "nvs"
     - name: Create Release
       if: env.changed == 'true'
       uses: softprops/action-gh-release@v2
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: "./release"
+        files: ${{ steps.List.output.file}}
         body_path: "README.md"
