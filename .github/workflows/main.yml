@@ -82,7 +82,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
           path: ./release
-   
+    - run: ls -R ./release
     - name: Create Release
       if: env.changed == 'true'
       uses: softprops/action-gh-release@v2
