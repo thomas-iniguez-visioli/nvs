@@ -3,6 +3,6 @@
   "output": "./blob.blob",
   "disableExperimentalSEAWarning": true, 
   "useSnapshot": false,  
-  "useCodeCache": true, 
+  "useCodeCache": true
   
 } 
