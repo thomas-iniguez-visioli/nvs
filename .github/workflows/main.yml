@@ -84,11 +84,9 @@ jobs:
           path: ./release
     - run: ls -R ./release
     - name: List
-      id: list-files
+      id: list
       uses: the-coding-turtle/ga-file-list@v0.2
       with:
-          repo: ${{ github.repository }}
-          ref: ${{ github.ref }}
           directory: "./release"
           
     - name: Create Release
@@ -97,5 +95,5 @@ jobs:
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{ steps.List.output.files}}
+        files: ${{ fromJson(steps.list.output.files)}}
         body_path: "README.md"
