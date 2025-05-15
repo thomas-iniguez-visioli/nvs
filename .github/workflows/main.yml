@@ -96,5 +96,7 @@ jobs:
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{steps.list.outputs.download-path}}
+        files: |
+          "./release/nvs-windows-latest/nvs.exe"
+          "./release/nvs-ubuntu-latest/nvs"
         body_path: "README.md"
