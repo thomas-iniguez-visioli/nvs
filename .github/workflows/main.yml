@@ -88,12 +88,12 @@ jobs:
       uses: the-coding-turtle/ga-file-list@v0.2
       with:
           directory: "./release"
-    - run: echo steps.list.outputs.files
+    - run: echo ${{steps.list.outputs.files}}
     - name: Create Release
       if: env.changed == 'true'
       uses: softprops/action-gh-release@v2
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{ fromJson(steps.list.outputs.files)}}
+        files: ${{ fromJson(${{steps.list.outputs.files}})}}
         body_path: "README.md"
