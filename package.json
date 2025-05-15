@@ -1,6 +1,6 @@
 {
   "name": "nvs",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "Node Version Switcher",
   "main": "lib/index.js",
   "scripts": {
