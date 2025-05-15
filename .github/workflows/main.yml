@@ -82,7 +82,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
           path: ./release
-    - run: ls -R ./release -1
+    - run: dir -R ./release 
     - name: list
       id: list
       uses: the-coding-turtle/ga-file-list@v0.2
