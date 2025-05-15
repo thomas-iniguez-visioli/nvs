@@ -83,7 +83,7 @@ jobs:
       with:
           path: ./release
     - run: ls -R ./release
-    - name: List
+    - name: list
       id: list
       uses: the-coding-turtle/ga-file-list@v0.2
       with:
