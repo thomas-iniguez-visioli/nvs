@@ -85,17 +85,17 @@ jobs:
     - run: ls -R ./release
     - name: List
       id: list-files
-      uses: mirko-felice/list-files-action@v3.0.5
+      uses: the-coding-turtle/ga-file-list@v0.2
       with:
           repo: ${{ github.repository }}
           ref: ${{ github.ref }}
-          path: "./release"
-          ext: ""
+          directory: "./release"
+          
     - name: Create Release
       if: env.changed == 'true'
       uses: softprops/action-gh-release@v2
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{ steps.List.output.file}}
+        files: ${{ steps.List.output.files}}
         body_path: "README.md"
