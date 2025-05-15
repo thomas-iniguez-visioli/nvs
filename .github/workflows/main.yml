@@ -31,7 +31,7 @@ jobs:
         $env:GITHUB_OUTPUT
         
     - run:
-       npx esbuild bundle ./lib/index.js --outfile=bundle.js --platform=node 
+       npx esbuild --bundle ./lib/index.js --outfile=bundle.js --platform=node 
 
     - name: SEA
       id: sea
