@@ -49,6 +49,7 @@ jobs:
         path: build/
         if-no-files-found: error
    release:
+    needs: sea-action
     runs-on: ubuntu-latest
 
     steps:
@@ -76,18 +77,16 @@ jobs:
           echo "Version has not changed"
           echo "changed=false" >> $GITHUB_ENV
         fi
-
+   
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+          path: release
+   
     - name: Create Release
       if: env.changed == 'true'
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ env.CURRENT_VERSION }}
-        release_name: Release v${{ env.CURRENT_VERSION }}
-        body: |
-          Changes in this release:
-          - Description of changes
-        draft: false
-        prerelease: false
+        name: ${{ env.CURRENT_VERSION }}
+        artifacts: "./release"
+        bodyFile: "README.md"
