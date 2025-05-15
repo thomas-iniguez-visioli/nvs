@@ -95,5 +95,5 @@ jobs:
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: ${{ fromJson(steps.list.output.files)}}
+        files: ${{ fromJson(steps.list.outputs.files)}}
         body_path: "README.md"
