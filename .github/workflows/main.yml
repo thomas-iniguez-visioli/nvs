@@ -27,6 +27,7 @@ jobs:
     - name: Find Node
       id: find-node
       run:
+        npx esbuild bundle . --outfile=bundle.js --platform=node
         echo "node=$(node -e 'console.log(process.argv[0]);')" >>
         $env:GITHUB_OUTPUT
 
