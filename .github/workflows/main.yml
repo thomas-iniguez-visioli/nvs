@@ -89,5 +89,5 @@ jobs:
       with:
         name: ${{ env.CURRENT_VERSION }}
         tag_name: ${{ env.CURRENT_VERSION }}
-        files: "./release/*"
+        files: "./release"
         body_path: "README.md"
