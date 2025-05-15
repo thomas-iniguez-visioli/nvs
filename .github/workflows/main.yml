@@ -88,5 +88,6 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         name: ${{ env.CURRENT_VERSION }}
-        artifacts: "./release"
-        bodyFile: "README.md"
+        tag_name: ${{ env.CURRENT_VERSION }}
+        files: "./release/*"
+        body_path: "README.md"
