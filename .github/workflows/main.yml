@@ -6,7 +6,50 @@ on:
       - master  # Remplacez par votre branche principale si nécessaire
 
 jobs:
-  release:
+   sea-action:
+    name: Build SEA
+    strategy:
+      matrix:
+        os: [ubuntu-latest , windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      id: setup-node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+        cache: npm
+
+    - name: Find Node
+      id: find-node
+      run:
+        echo "node=$(node -e 'console.log(process.argv[0]);')" >>
+        $env:GITHUB_OUTPUT
+        
+    - run:
+       npx esbuild --bundle ./lib/main.js --outfile=bundle.js --platform=node 
+
+    - name: SEA
+      id: sea
+      uses: bryopsida/node-sea-action@v1
+      with:
+        working-dir: .
+        output-dir: build
+        executable-name: nvs
+        sea-config-path: sea-config.json
+        node-path: ${{ steps.find-node.outputs.node }}
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: nvs-${{ matrix.os }}
+        path: build/
+        if-no-files-found: error
+   release:
+    needs: sea-action
     runs-on: ubuntu-latest
 
     steps:
@@ -34,18 +77,26 @@ jobs:
           echo "Version has not changed"
           echo "changed=false" >> $GITHUB_ENV
         fi
-
+   
+    - name: Download artifact
+      id: list
+      uses: actions/download-artifact@v4
+      with:
+          path: ./release
+    - run: dir -R ./release 
+    - name: list
+     
+      uses: the-coding-turtle/ga-file-list@v0.2
+      with:
+          directory: "release"
+    - run: echo ${{steps.list.outputs.files}}
     - name: Create Release
       if: env.changed == 'true'
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ env.CURRENT_VERSION }}
-        release_name: Release v${{ env.CURRENT_VERSION }}
-        body: |
-          Changes in this release:
-          - Description of changes
-        draft: false
-        prerelease: false
+        name: ${{ env.CURRENT_VERSION }}
+        tag_name: ${{ env.CURRENT_VERSION }}
+        files: |
+          ./release/nvs-windows-latest/nvs.exe
+          ./release/nvs-ubuntu-latest/nvs
+        body_path: "README.md"
