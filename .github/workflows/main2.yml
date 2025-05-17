@@ -28,7 +28,7 @@ jobs:
         id: bump-semver
         with:
           current_version: ${{ env.CURRENT_VERSION }}
-          level: minor
+          level: patch
       - name: Bump Version of package.json
         uses: ramonpaolo/bump-version@v2.3.1
         with:
